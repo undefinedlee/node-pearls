@@ -123,6 +123,8 @@ function write(file, content){
 var isTest = !!process.argv[2];
 
 readFiles(path.join(__dirname, "src"), ".js", true, function(files){
+	files.unshift(path.join(__dirname, "index.js"));
+	
 	files.forEach(function(file){
 		babel.transformFile(file, {
 			presets: ['es2015', 'stage-0']

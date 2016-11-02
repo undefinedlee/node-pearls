@@ -10,7 +10,7 @@ export default function(list){
 						results[index] = result;
 						count --;
 						if(count === 0){
-							resolve(...results);
+							resolve(results);
 						}
 					});
 				});
@@ -18,7 +18,7 @@ export default function(list){
 				reject(e);
 			}
 		}else{
-			resolve();
+			resolve(results);
 		}
 	});
 };
