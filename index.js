@@ -6,6 +6,8 @@ import pipe from "./src/pipe";
 import readFiles from "./src/read-files";
 import readJson from "./src/read-json";
 import sortJson from "./src/sort-json";
+import findNodeModules from "./src/find-node-modules";
+import jsDeps from "./src/js-deps";
 
 export default {
 	asyncList: asyncList,
@@ -15,5 +17,7 @@ export default {
 	pipe: pipe,
 	readFiles: readFiles,
 	readJson: readJson,
-	sortJson: sortJson
+	sortJson: sortJson,
+	findNodeModules: findNodeModules,
+	jsDeps: jsDeps
 };
