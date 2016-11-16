@@ -8,6 +8,7 @@ import readJson from "./src/read-json";
 import sortJson from "./src/sort-json";
 import findNodeModules from "./src/find-node-modules";
 import jsDeps from "./src/js-deps";
+import removeInvalid from "./src/remove-invalid";
 
 export default {
 	asyncList: asyncList,
@@ -19,5 +20,6 @@ export default {
 	readJson: readJson,
 	sortJson: sortJson,
 	findNodeModules: findNodeModules,
-	jsDeps: jsDeps
+	jsDeps: jsDeps,
+	removeInvalid: removeInvalid
 };
