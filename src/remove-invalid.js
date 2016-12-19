@@ -35,6 +35,10 @@ export default function(code, presets){
 		var left;
 		var right;
 
+		if(!node){
+			return NO_FOUND;
+		}
+
 		switch(node.type){
 			case "Literal":
 				return node.raw;
