@@ -4,7 +4,8 @@ import astQuery from "js-ast-query";
 
 const types = babel.types;
 // 没有匹配到预设
-const NO_FOUND = "__@no-found@__";
+// const NO_FOUND = "__@no-found@__";
+const NO_FOUND = {};
 
 export default function(code, presets){
 	presets = Object.keys(presets).map(function(preset){
