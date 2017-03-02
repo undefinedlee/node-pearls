@@ -58,6 +58,7 @@ jsDeps.replace = function(content, fn){
 		// 提取依赖
 		content = babel.transform(content, {
 			compact: false,
+			sourceMaps: process.env.SM ? "inline" : false,
 			plugins: [
 				function ({ types: t }) {
 					return {

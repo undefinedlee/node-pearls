@@ -149,6 +149,7 @@ export default function(code, presets){
 	try{
 		code = babel.transform(code, {
 			compact: false,
+			sourceMaps: process.env.SM ? "inline" : false,
 			plugins: [
 				function ({ types: t }) {
 					return {
