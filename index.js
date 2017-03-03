@@ -10,7 +10,7 @@ import findNodeModules from "./src/find-node-modules";
 import jsDeps from "./src/js-deps";
 import removeInvalid from "./src/remove-invalid";
 
-export default {
+module.exports = {
 	asyncList: asyncList,
 	hex: hex,
 	md5: md5,
