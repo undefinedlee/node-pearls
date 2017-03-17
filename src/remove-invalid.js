@@ -12,6 +12,7 @@ export default function(code, presets){
 		var value = presets[preset];
 		var ast = astQuery.JS.parse(preset);
 		return {
+			type: ast.type,
 			test: function(input){
 				return astQuery.JS.compare(ast, input);
 			},
@@ -146,6 +147,46 @@ export default function(code, presets){
 		}
 	}
 
+	var visitor = {
+			IfStatement: IfAndConditionalVisitor,
+			ConditionalExpression: IfAndConditionalVisitor
+		};
+
+	var presetTypes = {};
+	presets.forEach(function(preset){
+		if(!presetTypes[preset.type]){
+			presetTypes[preset.type] = [];
+		}
+
+		presetTypes[preset.type].push(function(path){
+			if(preset.test(path.node)){
+				let value = preset.value;
+				if(value === null){
+					value = types.NullLiteral();
+				}else{
+					switch(typeof value){
+						case "boolean":
+							value = types.BooleanLiteral(value);
+							break;
+						case "string":
+							value = types.StringLiteral(value);
+							break;
+						case "number":
+							value = types.NumericLiteral(value);
+							break;
+					}
+				}
+				path.replaceWith(value);
+			}
+		});
+	});
+
+	Object.keys(presetTypes).forEach(function(type){
+		visitor[type] = function(path){
+			presetTypes[type].forEach(v => v(path));
+		};
+	});
+
 	try{
 		code = babel.transform(code, {
 			compact: false,
@@ -153,10 +194,7 @@ export default function(code, presets){
 			plugins: [
 				function ({ types: t }) {
 					return {
-						visitor: {
-							IfStatement: IfAndConditionalVisitor,
-							ConditionalExpression: IfAndConditionalVisitor
-						}
+						visitor: visitor
 					};
 				}
 			]
