@@ -103,21 +103,23 @@ jsDeps.replace = function(content, fn){
 												return;
 											}
 
-											if(!modInfo.modId){
-												path.node = t.NullLiteral();
-												return;
-											}
-
 											if(modInfo instanceof Array){
 												path.node = t.ArrayExpression(modInfo.map(function(modInfo){
 													var modId = createModId(modInfo.modId);
-													addComments(modId, modInfo.comments);
+													if(modInfo.comments){
+														addComments(modId, modInfo.comments);
+													}
 
 													return t.CallExpression(
 															t.Identifier(modInfo.requireName || "require"),
 															modId
 														);
 												}));
+												return;
+											}
+
+											if(!modInfo.modId){
+												path.node = t.NullLiteral();
 												return;
 											}
 											
@@ -128,7 +130,9 @@ jsDeps.replace = function(content, fn){
 												node.callee.name = modInfo.requireName;
 											}
 											// 添加注释
-											addComments(node.arguments[0], modInfo.comments);
+											if(modInfo.comments){
+												addComments(node.arguments[0], modInfo.comments);
+											}
 									}
 								}
 							}

@@ -160,6 +160,16 @@ export default function(code, presets){
 
 		presetTypes[preset.type].push(function(path){
 			if(preset.test(path.node)){
+				let parentNode = path.parentPath.node;
+				//
+				if(parentNode.type === "MemberExpression"){
+					return;
+				}
+				//
+				if(parentNode.type === "AssignmentExpression" && parentNode.left === path.node){
+					return;
+				}
+
 				let value = preset.value;
 				if(value === null){
 					value = types.NullLiteral();
