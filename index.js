@@ -3,6 +3,7 @@ import hex from "./src/hex";
 import md5 from "./src/md5";
 import mkdirs from "./src/mkdirs";
 import pipe from "./src/pipe";
+import copyFiles from "./src/copy-files";
 import readFiles from "./src/read-files";
 import readJson from "./src/read-json";
 import sortJson from "./src/sort-json";
@@ -16,6 +17,7 @@ module.exports = {
 	md5: md5,
 	mkdirs: mkdirs,
 	pipe: pipe,
+	copyFiles: copyFiles,
 	readFiles: readFiles,
 	readJson: readJson,
 	sortJson: sortJson,
