@@ -4,7 +4,7 @@ import mkdirs from "./mkdirs";
 import asyncList from "./async-list";
 
 function copyFile(src, dist, callback){
-    // mkdirs.sync(path.dirname(dist));
+    mkdirs.sync(path.dirname(dist));
     var fileReadStream = fs.createReadStream(src);
     var fileWriteStream = fs.createWriteStream(dist);
     fileReadStream.pipe(fileWriteStream);
