@@ -104,7 +104,7 @@ jsDeps.replace = function(content, fn){
 											}
 
 											if(modInfo instanceof Array){
-												path.node = t.ArrayExpression(modInfo.map(function(modInfo){
+												path.replaceWith(t.ArrayExpression(modInfo.map(function(modInfo){
 													var modId = createModId(modInfo.modId);
 													if(modInfo.comments){
 														addComments(modId, modInfo.comments);
@@ -114,12 +114,12 @@ jsDeps.replace = function(content, fn){
 															t.Identifier(modInfo.requireName || "require"),
 															modId
 														);
-												}));
+												})));
 												return;
 											}
 
 											if(!modInfo.modId){
-												path.node = t.NullLiteral();
+												path.replaceWith(t.NullLiteral());
 												return;
 											}
 											
