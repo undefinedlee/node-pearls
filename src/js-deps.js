@@ -46,7 +46,7 @@ jsDeps.replace = function(content, fn){
 			var value = obj[key];
 			if(typeof value === "object"){
 				return value;
-			}else{
+			}else if(typeof value !== "undefined"){
 				return {
 					modId: value
 				};
