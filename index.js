@@ -11,6 +11,7 @@ import findNodeModules from "./src/find-node-modules";
 import nodeModules from "./src/node-modules";
 import jsDeps from "./src/js-deps";
 import removeInvalid from "./src/remove-invalid";
+import runCommands from "./src/run-commands";
 
 module.exports = {
 	asyncList: asyncList,
@@ -25,5 +26,6 @@ module.exports = {
 	findNodeModules: findNodeModules,
 	nodeModules: nodeModules,
 	jsDeps: jsDeps,
-	removeInvalid: removeInvalid
+	removeInvalid: removeInvalid,
+	runCommands: runCommands
 };
