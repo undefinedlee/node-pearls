@@ -97,24 +97,34 @@ jsDeps.replace = function(content, fn){
 										node.arguments[0] &&
 										node.arguments[0].type === "StringLiteral" &&
 										!path.scope.hasBinding("require")){
-											let modInfo = fn(node.arguments[0].value);
+											let modInfo = fn(node.arguments[0].value, path);
 
 											if(!modInfo){
 												return;
 											}
 
 											if(modInfo instanceof Array){
-												path.replaceWith(t.ArrayExpression(modInfo.map(function(modInfo){
-													var modId = createModId(modInfo.modId);
-													if(modInfo.comments){
-														addComments(modId, modInfo.comments);
-													}
+												if(modInfo.some(item => !!item.requireName)){
+													path.replaceWith(t.ArrayExpression(modInfo.map(function(modInfo){
+														var modId = createModId(modInfo.modId);
+														if(modInfo.comments){
+															addComments(modId, modInfo.comments);
+														}
 
-													return t.CallExpression(
-															t.Identifier(modInfo.requireName || "require"),
-															modId
-														);
-												})));
+														return t.CallExpression(
+																t.Identifier(modInfo.requireName || "require"),
+																modId
+															);
+													})));
+												}else{
+													node.arguments[0] = t.ArrayExpression(modInfo.map(function(modInfo){
+														var modId = createModId(modInfo.modId);
+														if(modInfo.comments){
+															addComments(modId, modInfo.comments);
+														}
+														return modId;
+													}));
+												}
 												return;
 											}
 
